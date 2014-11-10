@@ -8,9 +8,8 @@
  *                  TODO
  *                  
  *                  • Make library an array of structs
- *                  • Return ERROR if command is not a number
  *                  • Enable "listing" of all books added to library
- *                  • Add a database for storing library books?
+ *                  • Add a file for storing list of books
  *
  *        Version:  1.0
  *        Created:  10/26/2014 16:36:17
@@ -29,6 +28,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
+#include <ctype.h>
 
 // Constants
 // Structs
@@ -97,7 +97,9 @@ int main(void) {
                 printf("You have selected: %s\n", commands[4]);
                 break;
             default:
-                printf("ERROR! '%d' is not a command.\n", input);
+                if (!(isdigit(input))) {
+                    printf("ERROR! Enter a number corresponding to a command.\n");
+                }
         }
     } while (!exit);
 
