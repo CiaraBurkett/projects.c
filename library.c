@@ -8,10 +8,8 @@
  *                  TODO
  *                  
  *                  • Make library an array of structs
- *                  • Add subject as an input
  *                  • Return ERROR if command is not a number
  *                  • Enable "listing" of all books added to library
- *                  • Ignore executable(s) on git
  *                  • Add a database for storing library books?
  *
  *        Version:  1.0
@@ -75,14 +73,18 @@ int main(void) {
                 printf("Enter the book's author: ");
                 read(library.author, sizeof(library.author));
 
+                printf("Enter the subject: ");
+                read(library.subject, sizeof(library.author));
+
                 printf("Enter the year of publication: ");
                 scanf("%d", &library.year);
 
                 srand(time(NULL));
                 library.isbn = rand();
                 
-                printf("New Book: '%s' by %s, published in %d with ISBN: %d\n", 
+                printf("New Book: '%s' by %s, published in %d with ISBN: %d ", 
                         library.title, library.author, library.year, library.isbn);
+                printf("in the %s aisle.\n", library.subject);
                 break;
             case 3:
                 printf("You have selected: %s\n", commands[2]);
