@@ -10,6 +10,7 @@
  *                  • Make library an array of structs
  *                  • Enable "listing" of all books added to library
  *                  • Add a file for storing list of books
+ *                  • Make each case statement a function
  *
  *        Version:  1.0
  *        Created:  10/26/2014 16:36:17
