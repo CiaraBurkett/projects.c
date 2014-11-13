@@ -7,9 +7,11 @@
  *
  *                  TODO
  *                  
- *                  • Make library an array of structs
- *                  • Enable "listing" of all books added to library
+ *                  • Ask user if they wish to continue adding books after
+ *                    each addition
+ *                  • Enable "listing" of new books added to library in formatted way
  *                  • Add a file for storing list of books
+ *                  • Enable printing of all books in file
  *                  • Make each case statement a function
  *
  *        Version:  1.0
@@ -32,6 +34,8 @@
 #include <ctype.h>
 
 // Constants
+#define SHELF_SPACE 3 
+
 // Structs
 struct Book {
     char title[100];
@@ -48,8 +52,8 @@ int read(char s[], int maxlen);
 int main(void) {
     bool exit = false;
     const char *commands[5] = {"help", "new", "list", "exit", "delete"};
-    int input, i;
-    struct Book library;
+    int input, i, count;
+    struct Book library[SHELF_SPACE];
 
     for(i = 0; i < 5; i++) {
         printf("Command[%d]:  %s\n", i+1, commands[i]);
@@ -67,25 +71,32 @@ int main(void) {
                 puts("Enter a number corresponding to a command.");
                 break;
             case 2:
-                printf("You have selected: %s\n", commands[1]);
-                printf("Enter the book title: ");
-                read(library.title, sizeof(library.title));
+                for (count = 0; count < SHELF_SPACE; count++) {
+                    printf("You have selected: %s\n", commands[1]);
+                    printf("Enter the book title: ");
+                    read(library[count].title, sizeof(library[count].title));
 
-                printf("Enter the book's author: ");
-                read(library.author, sizeof(library.author));
+                    printf("Enter the book's author: ");
+                    read(library[count].author, sizeof(library[count].author));
 
-                printf("Enter the subject: ");
-                read(library.subject, sizeof(library.author));
+                    printf("Enter the subject: ");
+                    read(library[count].subject, sizeof(library[count].author));
 
-                printf("Enter the year of publication: ");
-                scanf("%d", &library.year);
+                    printf("Enter the year of publication: ");
+                    scanf("%d", &library[count].year);
 
-                srand(time(NULL));
-                library.isbn = rand();
+                    srand(time(NULL));
+                    library[count].isbn = rand();
+                    rewind(stdin);
+                }
+
+                for (count = 0; count < SHELF_SPACE; count++) {
+                    printf("Book[%d]: '%s' \nBy: %s \nPublished: %d \nISBN: %d ", 
+                            count + 1, library[count].title, library[count].author, 
+                            library[count].year, library[count].isbn);
+                    printf("\nAisle: %s\n", library[count].subject);
+                }
                 
-                printf("New Book: '%s' by %s, published in %d with ISBN: %d ", 
-                        library.title, library.author, library.year, library.isbn);
-                printf("in the %s aisle.\n", library.subject);
                 break;
             case 3:
                 printf("You have selected: %s\n", commands[2]);
