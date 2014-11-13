@@ -40,7 +40,7 @@
 struct Book {
     char title[100];
     char author[100];
-    char subject[50];
+    char genre[50];
     int isbn;
     int year;
 };
@@ -79,8 +79,8 @@ int main(void) {
                     printf("Enter the book's author: ");
                     read(library[count].author, sizeof(library[count].author));
 
-                    printf("Enter the subject: ");
-                    read(library[count].subject, sizeof(library[count].author));
+                    printf("Enter the genre: ");
+                    read(library[count].genre, sizeof(library[count].genre));
 
                     printf("Enter the year of publication: ");
                     scanf("%d", &library[count].year);
@@ -94,7 +94,8 @@ int main(void) {
                     printf("Book[%d]: '%s' \nBy: %s \nPublished: %d \nISBN: %d ", 
                             count + 1, library[count].title, library[count].author, 
                             library[count].year, library[count].isbn);
-                    printf("\nAisle: %s\n", library[count].subject);
+                    printf("\nAisle: %s\n", library[count].genre);
+                    printf("\n");
                 }
                 
                 break;
