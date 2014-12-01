@@ -9,10 +9,7 @@
  *                  
  *                  • Ask user if they wish to continue adding books after
  *                    each addition
- *                  • Enable "listing" of new books added to library in formatted way
- *                  • Add a file for storing list of books
- *                  • Enable printing of all books in file
- *                  • Make each case statement a function
+ *                  • Make each case statement a function(?)
  *
  *        Version:  1.0
  *        Created:  10/26/2014 16:36:17
