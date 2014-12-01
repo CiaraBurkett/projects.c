@@ -7,9 +7,8 @@
  *
  *                  TODO
  *                  
- *                  • Ask user if they wish to continue adding books after
- *                    each addition
  *                  • Make each case statement a function(?)
+ *                  • When user is done adding books, list books added to library array
  *
  *        Version:  1.0
  *        Created:  10/26/2014 16:36:17
@@ -31,14 +30,13 @@
 #include <ctype.h>
 
 // Constants
-#define SHELF_SPACE 3 
+#define SHELF_SPACE 25 
 
 // Structs
 struct Book {
     char title[100];
     char author[100];
     char genre[50];
-    int isbn;
     int year;
 };
 
@@ -48,6 +46,7 @@ int read(char s[], int maxlen);
 // Main
 int main(void) {
     bool exit = false;
+    char add = 'y';
     const char *commands[5] = {"help", "new", "list", "exit", "delete"};
     int input, i, count;
     struct Book library[SHELF_SPACE];
@@ -62,13 +61,13 @@ int main(void) {
         rewind(stdin);
 
         switch(input) {
-            case 1:
+            case 1: // Help 
                 printf("You have selected: %s\n", commands[0]);
                 puts("You are using Library to enter books into a digital catalog.");
                 puts("Enter a number corresponding to a command.");
                 break;
-            case 2:
-                for (count = 0; count < SHELF_SPACE; count++) {
+            case 2: // New
+                do {
                     printf("You have selected: %s\n", commands[1]);
                     printf("Enter the book title: ");
                     read(library[count].title, sizeof(library[count].title));
@@ -82,28 +81,30 @@ int main(void) {
                     printf("Enter the year of publication: ");
                     scanf("%d", &library[count].year);
 
-                    srand(time(NULL));
-                    library[count].isbn = rand();
                     rewind(stdin);
-                }
 
-                for (count = 0; count < SHELF_SPACE; count++) {
-                    printf("Book[%d]: '%s' \nBy: %s \nPublished: %d \nISBN: %d ", 
-                            count + 1, library[count].title, library[count].author, 
-                            library[count].year, library[count].isbn);
-                    printf("\nAisle: %s\n", library[count].genre);
+                    printf("\nAdd another? (y/n) ");
+                    scanf("%c", &add);
                     printf("\n");
-                }
+
+                    rewind(stdin);
+                } while (add == 'y');
+                
+                printf("Book[%d]: '%s' \nBy: %s \nPublished: %d ", 
+                        count + 1, library[count].title, library[count].author, 
+                        library[count].year);
+                printf("\nAisle: %s\n", library[count].genre);
+                printf("\n");
                 
                 break;
-            case 3:
+            case 3: // List
                 printf("You have selected: %s\n", commands[2]);
                 break;
-            case 4:
+            case 4: // Exit
                 printf("You have selected: %s\n", commands[3]);
                 exit = true;
                 break;
-            case 5:
+            case 5: // Delete
                 printf("You have selected: %s\n", commands[4]);
                 break;
             default:
