@@ -48,7 +48,7 @@ int main(void) {
     bool exit = false;
     char add = 'y';
     const char *commands[5] = {"help", "new", "list", "exit", "delete"};
-    int input, i, count;
+    int count, i, input, j;
     struct Book library[SHELF_SPACE];
 
     for(i = 0; i < 5; i++) {
@@ -63,39 +63,51 @@ int main(void) {
         switch(input) {
             case 1: // Help 
                 printf("You have selected: %s\n", commands[0]);
+                printf("\n");
                 puts("You are using Library to enter books into a digital catalog.");
                 puts("Enter a number corresponding to a command.");
+                printf("\n");
                 break;
             case 2: // New
-                do {
-                    printf("You have selected: %s\n", commands[1]);
-                    printf("Enter the book title: ");
-                    read(library[count].title, sizeof(library[count].title));
+                for (count = 0; count < SHELF_SPACE; count++) {
+                  do {
+                      printf("You have selected: %s\n", commands[1]);
+                      printf("Enter the book title: ");
+                      read(library[count].title, sizeof(library[count].title));
 
-                    printf("Enter the book's author: ");
-                    read(library[count].author, sizeof(library[count].author));
+                      printf("Enter the book's author: ");
+                      read(library[count].author, sizeof(library[count].author));
 
-                    printf("Enter the genre: ");
-                    read(library[count].genre, sizeof(library[count].genre));
+                      printf("Enter the genre: ");
+                      read(library[count].genre, sizeof(library[count].genre));
 
-                    printf("Enter the year of publication: ");
-                    scanf("%d", &library[count].year);
+                      printf("Enter the year of publication: ");
+                      scanf("%d", &library[count].year);
 
-                    rewind(stdin);
+                      rewind(stdin);
 
-                    printf("\nAdd another? (y/n) ");
-                    scanf("%c", &add);
-                    printf("\n");
+                      printf("\nAdd another? (y/n): ");
+                      scanf("%c", &add);
+                      printf("\n");
 
-                    rewind(stdin);
-                } while (add == 'y');
-                
-                printf("Book[%d]: '%s' \nBy: %s \nPublished: %d ", 
-                        count + 1, library[count].title, library[count].author, 
-                        library[count].year);
-                printf("\nAisle: %s\n", library[count].genre);
-                printf("\n");
-                
+                      rewind(stdin);
+
+                      printf("\n%d\n", count);
+
+                      for (j = 0; j < count; j++) {
+                        printf("Book[%d]: '%s' \nBy: %s \nPublished: %d ", 
+                                count + 1, library[count].title, library[count].author, 
+                                library[count].year);
+                        printf("\nAisle: %s\n", library[count].genre);
+                        printf("\n");
+                      }
+                  } while (add == 'y');
+
+                  if (add != 'y') {
+                    break;
+                  }
+                }
+
                 break;
             case 3: // List
                 printf("You have selected: %s\n", commands[2]);
